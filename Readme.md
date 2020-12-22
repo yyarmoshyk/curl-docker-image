@@ -14,4 +14,4 @@ docker run -t --rm yyarmoshyk/curl-docker-image:main https://raw.githubuserconte
 ```
 
 
-I'm using sysdig.com trial account to scan the image.
+I'm using [Azure container-scan](https://github.com/marketplace/actions/container-image-scan) to scan the image.
