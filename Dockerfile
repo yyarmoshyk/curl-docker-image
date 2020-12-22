@@ -4,7 +4,7 @@ RUN apk add --update --virtual build-dependencies build-base;\
 
 RUN git clone https://github.com/curl/curl.git
 RUN cd curl;\
-    autoreconf -fi;\
+    autoreconf -ifs -W none;\
     ./configure --with-ssh --with-libssh;\
     make;\
     make install
