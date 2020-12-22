@@ -24,8 +24,8 @@ jobs:
       with:
         image-name: yyarmoshyk/curl-docker-image:latest
     - name: Push to Docker Hub
-      uses: docker/build-push-action@v1
       run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} --email=y.yarmoshyk@gmail.com && docker push yyarmoshyk/curl-docker-image:latest
+
   # Scan:
   #   runs-on: ubuntu-latest
   #   steps:
