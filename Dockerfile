@@ -1,12 +1,12 @@
 FROM alpine as builder
 ARG curl_version
 RUN apk add --update --virtual build-dependencies build-base;\
-    apk add wget git autoconf automake libtool groff libssh-dev openssl-dev wget unzip
+    apk add wget git autoconf automake libtool groff libssh-dev openssl-dev unzip
 
 # RUN git clone https://github.com/curl/curl.git
 RUN wget https://github.com/curl/curl/archive/curl-$(echo ${curl_version} |sed 's/\./_/g').zip;\
     unzip curl-$(echo ${curl_version} |sed 's/\./_/g').zip
-RUN cd curl;\
+RUN cd curl-curl-$(echo ${curl_version} |sed 's/\./_/g');\
     autoreconf -ifs -W none;\
     ./configure --with-ssh --with-libssh;\
     make;\
