@@ -14,6 +14,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag yyarmoshyk/curl-docker-image:latest
+    - name: Scan
+      uses: Azure/container-scan@v0
+      with:
+        image-name: yyarmoshyk/curl-docker-image:latest
     - name: Push to Docker Hub
       uses: docker/build-push-action@v1
       with:
