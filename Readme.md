@@ -10,7 +10,7 @@ Curl binary is used as an ENTRYPOINT so the command `docker run -t --rm yyarmosh
 
 The following command will print this readme file.
 ```bash
-docker run -t --rm yyarmoshyk/curl-docker-image:main http://www.tech-notes.net/
+docker run -t --rm yyarmoshyk/curl-docker-image:main https://raw.githubusercontent.com/yyarmoshyk/curl-docker-image/main/Readme.md
 ```
 
 
