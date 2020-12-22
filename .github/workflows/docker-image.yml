@@ -16,19 +16,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --build-arg curl_version=$CURL_VERSION --tag yyarmoshyk/curl-docker-image:$CURL_VERSION
+      run: docker build . --file Dockerfile --build-arg curl_version=$CURL_VERSION --tag yyarmoshyk/curl-docker-image
       env:
         DOCKER_CONTENT_TRUST: 1
     - name: Scan
       uses: Azure/container-scan@v0
       with:
-        image-name: yyarmoshyk/curl-docker-image:$CURL_VERSION
+        image-name: yyarmoshyk/curl-docker-image
     - name: Push to Docker Hub
       uses: docker/build-push-action@v1
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: yyarmoshyk/curl-docker-image:$CURL_VERSION
+        repository: yyarmoshyk/curl-docker-image
         tag_with_ref: false
 
   # Scan:
