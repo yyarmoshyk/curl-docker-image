@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  CURL_VERSION: "7.74.0"
+
 jobs:
 
   build:
@@ -13,17 +16,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag yyarmoshyk/curl-docker-image:latest
+      run: docker build . --file Dockerfile --build-arg curl_version=$CURL_VERSION --tag yyarmoshyk/curl-docker-image:$CURL_VERSION
+      env:
+        DOCKER_CONTENT_TRUST: 1
     - name: Scan
       uses: Azure/container-scan@v0
       with:
-        image-name: yyarmoshyk/curl-docker-image:latest
+        image-name: yyarmoshyk/curl-docker-image:$CURL_VERSION
     - name: Push to Docker Hub
       uses: docker/build-push-action@v1
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: yyarmoshyk/curl-docker-image
+        repository: yyarmoshyk/curl-docker-image:$CURL_VERSION
         tag_with_ref: false
 
   # Scan:

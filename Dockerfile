@@ -1,8 +1,11 @@
 FROM alpine as builder
+ARG curl_version
 RUN apk add --update --virtual build-dependencies build-base;\
-    apk add wget git autoconf automake libtool groff libssh-dev openssl-dev
+    apk add wget git autoconf automake libtool groff libssh-dev openssl-dev wget unzip
 
-RUN git clone https://github.com/curl/curl.git
+# RUN git clone https://github.com/curl/curl.git
+RUN wget https://github.com/curl/curl/archive/curl-$(echo ${curl_version} |sed 's/\./_/g').zip;\
+    unzip curl-$(echo ${curl_version} |sed 's/\./_/g').zip
 RUN cd curl;\
     autoreconf -ifs -W none;\
     ./configure --with-ssh --with-libssh;\
@@ -37,4 +40,6 @@ RUN cd /usr/local/lib/;\
     ln -s libcurl.so.4.7.0 libcurl.so;\
     ln -s libcurl.so.4.7.0 libcurl.so.4
 RUN ldconfig -n /usr/local/lib
+USER nobody
+HEALTHCHECK CMD /bin/curl --version
 ENTRYPOINT ["/bin/curl"]
