@@ -15,9 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag yyarmoshyk/curl-docker-image:$(date +%s)
-    - name: Tag the Docker image
-      run: docker tag yyarmoshyk/curl-docker-image:$(date +%s) yyarmoshyk/curl-docker-image:latest
+      run: docker build . --file Dockerfile --tag yyarmoshyk/curl-docker-image
     - name: Push to Docker Hub
       uses: docker/build-push-action@v1
       with:
