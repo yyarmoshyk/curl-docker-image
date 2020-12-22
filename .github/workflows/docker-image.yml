@@ -30,6 +30,8 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: yyarmoshyk/curl-docker-image:latest
         tag_with_ref: false
+        build-args: |
+            curl_version=$CURL_VERSION
 
   # Scan:
   #   runs-on: ubuntu-latest
