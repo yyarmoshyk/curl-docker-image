@@ -14,17 +14,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag yyarmoshyk/curl-docker-image:latest
-  Scan:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Scan image
-      uses: sysdiglabs/scan-action@v1
-      with:
-        image-tag: "yyarmoshyk/curl-docker-image:latest"
-        sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
-  Publish:
-    runs-on: ubuntu-latest
-    steps:
     - name: Push to Docker Hub
       uses: docker/build-push-action@v1
       with:
@@ -32,3 +21,12 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: yyarmoshyk/curl-docker-image
         tag_with_ref: false
+
+  # Scan:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Scan image
+  #     uses: sysdiglabs/scan-action@v1
+  #     with:
+  #       image-tag: "yyarmoshyk/curl-docker-image:latest"
+  #       sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
